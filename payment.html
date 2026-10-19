@@ -1,36 +1,119 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment | HB Travel Service</title>
-
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <style>
+        .payment-container {
+            max-width: 550px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 5px 25px #0001;
+        }
+        .payment-container h2 { color: #075985; }
+        .payment-container label {
+            display: block;
+            margin-top: 14px;
+            font-weight: bold;
+        }
+        .payment-container input,
+        .payment-container select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .pay-button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            background: #075985;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .notice { color: #555; font-size: 13px; }
+    </style>
 </head>
-
 <body>
 
 <header>
-    <div class="logo">
-        <h2>HB Travel Service</h2>
-    </div>
-
+    <h1>HB Travel Service</h1>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="flights.html">Flights</a></li>
-            <li><a href="bus.html">Bus</a></li>
-            <li><a href="booking.html">Booking</a></li>
-            <li><a href="payment.html">Payment</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="bus.html">Bus</a>
+        <a href="booking.html">Booking</a>
+        <a href="payment.html">Payment</a>
+        <a href="contact.html">Contact</a>
     </nav>
 </header>
 
-<section class="hero">
-    <div class="hero-text">
-        <h1>Secure Payment</h1>
-        <p>Complete your booking safely.</p>
-    </div
+<main class="payment-container">
+    <h2>Complete Your Booking</h2>
+    <p>Enter your booking details to continue.</p>
+
+    <form id="paymentForm">
+        <label for="bookingId">Booking ID</label>
+        <input id="bookingId" name="bookingId"
+               placeholder="Enter booking ID" required>
+
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName"
+               placeholder="Your full name" required>
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email"
+               placeholder="you@example.com" required>
+
+        <label for="amount">Payment Amount (¥)</label>
+        <input id="amount" name="amount" type="number"
+               min="1" step="1" placeholder="Enter amount" required>
+
+        <label for="method">Payment Method</label>
+        <select id="method" name="method" required>
+            <option value="">Select payment method</option>
+            <option value="card">Credit / Debit Card</option>
+            <option value="bank">Bank Transfer</option>
+            <option value="convenience">Convenience Store</option>
+        </select>
+
+        <button class="pay-button" type="submit">
+            Continue to Payment
+        </button>
+
+        <p class="notice">
+            Demo only. No real payment will be processed.
+            Do not enter actual card or bank details.
+        </p>
+    </form>
+
+    <p id="message" role="status"></p>
+</main>
+
+<footer>
+    <p>&copy; <span id="year"></span> HB Travel Service</p>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+document.getElementById("paymentForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    document.getElementById("message").textContent =
+        "Demo booking details accepted. No payment was made.";
+});
+</script>
+
+</body>
+</html>
