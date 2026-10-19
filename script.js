@@ -8,17 +8,22 @@ const searchForm = document.querySelector(".search form");
 
 if (searchForm) {
     searchForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
         const from = searchForm.querySelector('[name="from"]');
         const to = searchForm.querySelector('[name="to"]');
         const date = searchForm.querySelector('[name="date"]');
         const passengers = searchForm.querySelector('[name="passengers"]');
 
-        // Run bus search only when these fields exist
+        // Only handle the bus search form
         if (from && to && date && passengers) {
+            e.preventDefault();
+
             if (from.value === to.value) {
                 alert("Departure and destination must be different.");
+                return;
+            }
+
+            if (!date.value) {
+                alert("Please select your travel date.");
                 return;
             }
 
@@ -30,8 +35,6 @@ if (searchForm) {
             });
 
             window.location.href = "booking.html?" + params.toString();
-        } else {
-            alert("Searching Available Tickets...");
         }
     });
 }
@@ -44,7 +47,7 @@ if (bookingForm) {
     bookingForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        alert("Booking Successful!\n\nYour ticket has been reserved.");
+        alert("Booking Successful!\n\nYour demo booking has been recorded.");
 
         window.location.href = "payment.html";
     });
@@ -58,7 +61,7 @@ if (paymentForm) {
     paymentForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        alert("Payment Successful!\n\nThank you for choosing HB Travel Service.");
+        alert("Demo Payment Successful!\n\nNo real payment was processed.");
 
         window.location.href = "index.html";
     });
@@ -72,7 +75,7 @@ if (contactForm) {
     contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        alert("Thank you!\n\nYour message has been sent successfully.");
+        alert("Thank you!\n\nYour demo message has been submitted.");
 
         contactForm.reset();
     });
@@ -83,21 +86,23 @@ if (contactForm) {
 const cards = document.querySelectorAll(".card");
 
 cards.forEach(card => {
-    card.addEventListener("mouseover", () => {
+    card.addEventListener("mouseenter", () => {
         card.style.transform = "translateY(-8px)";
     });
 
-    card.addEventListener("mouseout", () => {
-        card.style.transform = "translateY(0px)";
+    card.addEventListener("mouseleave", () => {
+        card.style.transform = "translateY(0)";
     });
 });
 
 
-// Navigation Active
+// Active Navigation
 const links = document.querySelectorAll("nav a");
 
 links.forEach(link => {
-    if (link.href === window.location.href) {
+    const linkURL = new URL(link.href, window.location.href);
+
+    if (linkURL.pathname === window.location.pathname) {
         link.style.color = "red";
     }
 });
