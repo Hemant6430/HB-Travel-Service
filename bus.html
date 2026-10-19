@@ -1,64 +1,94 @@
 ```html
-<link rel="stylesheet" href="style.css">
-<h2>Search Bus Ticket</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<form action="booking.html" method="get" onsubmit="return validateBusSearch()">
+    <title>Bus Tickets | HB Travel Service</title>
 
-  <label for="from">From</label>
-  <select id="from" name="from" required>
-    <option value="">Select Departure</option>
-    <option>Kathmandu (Gongabu Bus Park)</option>
-    <option>Pokhara Bus Park</option>
-    <option>Chitwan (Bharatpur)</option>
-    <option>Butwal Bus Park</option>
-    <option>Dhangadhi Bus Park</option>
-    <option>Nepalgunj Bus Park</option>
-    <option>Biratnagar Bus Park</option>
-    <option>Janakpur Bus Park</option>
-    <option>Birgunj Bus Park</option>
-    <option>Mahendranagar Bus Park</option>
-  </select>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-  <label for="to">To</label>
-  <select id="to" name="to" required>
-    <option value="">Select Destination</option>
-    <option>Kathmandu (Gongabu Bus Park)</option>
-    <option>Pokhara Bus Park</option>
-    <option>Chitwan (Bharatpur)</option>
-    <option>Butwal Bus Park</option>
-    <option>Dhangadhi Bus Park</option>
-    <option>Nepalgunj Bus Park</option>
-    <option>Biratnagar Bus Park</option>
-    <option>Janakpur Bus Park</option>
-    <option>Birgunj Bus Park</option>
-    <option>Mahendranagar Bus Park</option>
-  </select>
+    <section class="search">
+        <h2>Search Bus Ticket</h2>
 
-  <label for="date">Travel Date</label>
-  <input type="date" id="date" name="date" required>
+        <form action="booking.html" method="get"
+              onsubmit="return validateBusSearch()">
 
-  <label for="passengers">Passengers</label>
-  <select id="passengers" name="passengers" required>
-    <option value="1">1 Passenger</option>
-    <option value="2">2 Passengers</option>
-    <option value="3">3 Passengers</option>
-    <option value="4">4 Passengers</option>
-  </select>
+            <label for="from">From</label>
+            <select id="from" name="from" required>
+                <option value="">Select Departure</option>
+                <option value="Kathmandu (Gongabu Bus Park)">Kathmandu (Gongabu Bus Park)</option>
+                <option value="Pokhara Bus Park">Pokhara Bus Park</option>
+                <option value="Chitwan (Bharatpur)">Chitwan (Bharatpur)</option>
+                <option value="Butwal Bus Park">Butwal Bus Park</option>
+                <option value="Dhangadhi Bus Park">Dhangadhi Bus Park</option>
+                <option value="Nepalgunj Bus Park">Nepalgunj Bus Park</option>
+                <option value="Biratnagar Bus Park">Biratnagar Bus Park</option>
+                <option value="Janakpur Bus Park">Janakpur Bus Park</option>
+                <option value="Birgunj Bus Park">Birgunj Bus Park</option>
+                <option value="Mahendranagar Bus Park">Mahendranagar Bus Park</option>
+            </select>
 
-  <button type="submit">Search Bus</button>
+            <label for="to">To</label>
+            <select id="to" name="to" required>
+                <option value="">Select Destination</option>
+                <option value="Kathmandu (Gongabu Bus Park)">Kathmandu (Gongabu Bus Park)</option>
+                <option value="Pokhara Bus Park">Pokhara Bus Park</option>
+                <option value="Chitwan (Bharatpur)">Chitwan (Bharatpur)</option>
+                <option value="Butwal Bus Park">Butwal Bus Park</option>
+                <option value="Dhangadhi Bus Park">Dhangadhi Bus Park</option>
+                <option value="Nepalgunj Bus Park">Nepalgunj Bus Park</option>
+                <option value="Biratnagar Bus Park">Biratnagar Bus Park</option>
+                <option value="Janakpur Bus Park">Janakpur Bus Park</option>
+                <option value="Birgunj Bus Park">Birgunj Bus Park</option>
+                <option value="Mahendranagar Bus Park">Mahendranagar Bus Park</option>
+            </select>
 
-</form>
+            <label for="date">Travel Date</label>
+            <input type="date" id="date" name="date" required>
 
-<script>
-function validateBusSearch() {
-  const from = document.getElementById("from").value;
-  const to = document.getElementById("to").value;
-  const date = document.getElementById("date").value;
+            <label for="passengers">Passengers</label>
+            <select id="passengers" name="passengers" required>
+                <option value="1">1 Passenger</option>
+                <option value="2">2 Passengers</option>
+                <option value="3">3 Passengers</option>
+                <option value="4">4 Passengers</option>
+            </select>
 
-  if (from === to) {
-    alert("Departure and destination must be different.");
-    return false;
-  }
+            <button type="submit">Search Bus</button>
+        </form>
+    </section>
 
-  const today = new Date();
-  today.setHours(0, 0, 0
+    <script>
+        const travelDate = document.getElementById("date");
+        travelDate.min = new Date().toLocaleDateString("en-CA");
+
+        function validateBusSearch() {
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+            const date = travelDate.value;
+
+            if (from === to) {
+                alert("Departure and destination must be different.");
+                return false;
+            }
+
+            if (!date || date < travelDate.min) {
+                alert("Please select today or a future travel date.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+```
